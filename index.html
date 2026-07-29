@@ -82,6 +82,7 @@ select.monthSel { padding:4px 8px; border-radius:5px; border:1px solid #999; }
 .zoomModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:1000; align-items:center; justify-content:center; padding:26px; cursor:zoom-out; }
 .zoomModal .zoomModalInner { max-width:96vw; max-height:92vh; background:white; border-radius:8px; padding:16px; overflow:auto; }
 .zoomModal .zoomModalInner svg { width:80vw; height:auto; max-height:82vh; display:block; }
+@page { margin: 12mm; }
 @media print {
   .filterBar, #exportPdfBtn, .zoomModal, input[type=checkbox], .gridjs-search, .gridjs-pagination { display:none !important; }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -90,6 +91,18 @@ select.monthSel { padding:4px 8px; border-radius:5px; border:1px solid #999; }
   .section-hd { page-break-after: avoid; break-after: avoid; }
   .map-wrap, .insetbox { cursor: default; }
   body { background:white; }
+  .header { padding: 6px 10px 0 !important; }
+  h1.title { font-size: 24px !important; margin: 2px 0 0 !important; }
+  .kicker { font-size: 11px !important; }
+  .fins svg { height: 32px !important; width: auto !important; }
+  .orangebar { height: 4px !important; margin: 6px 0 12px !important; }
+  .map-wrap { max-width: 480px !important; margin: 0 auto; }
+  .map-wrap svg { max-width: 100% !important; }
+  .insetbox { width: 110px !important; }
+  .insetbox .lbl { font-size: 8px !important; padding: 2px 4px !important; }
+  .compactTable td, .compactTable th { padding: 4px 6px !important; font-size: 11px !important; }
+  .card { padding: 10px !important; margin-bottom: 10px !important; }
+  .section-hd { padding: 6px 10px !important; font-size: 13px !important; }
 }
 footer { text-align:center; font-size:12px; color:#777; padding:20px; }
 a.reload { font-size:12px; }
