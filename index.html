@@ -13,7 +13,7 @@
 body { margin:0; font-family: Arial, Helvetica, sans-serif; background:#E4DCF7; color:#231F20; }
 .page { max-width: 1100px; margin: 22px auto; background:#F9F9F2; box-shadow: 0 3px 20px rgba(31,0,127,0.12); border-radius: 10px; overflow: hidden; }
 @media (max-width: 760px) { .page { margin: 0; border-radius: 0; box-shadow: none; } }
-@media print { body { background: white; } .page { margin:0; box-shadow:none; border-radius:0; max-width:none; } }
+@media print { body { background: white; } .page { margin:0; box-shadow:none; border-radius:0; max-width:190mm; width:190mm; } }
 .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px 60px; }
 .header { background:white; padding: 28px 20px 0; }
 .kicker { color:#6114F4; font-weight:800; font-size:15px; letter-spacing:1px; }
@@ -393,7 +393,7 @@ const paxChart = new Chart(document.getElementById('paxChart'), {
   },
   options: {
     responsive:true, maintainAspectRatio:false,
-    layout: { padding: { top: 24 } },
+    layout: { padding: { top: 24, right: 26 } },
     plugins: { legend: { display:false }, tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(0) + 'K passengers'; } } } },
     scales: { y: { title: { display:true, text:'Total Passengers (thousands)' } } }
   },
@@ -714,5 +714,25 @@ function drawMapLeaderLines() {
 window.addEventListener('load', drawMapLeaderLines);
 window.addEventListener('resize', drawMapLeaderLines);
 setTimeout(drawMapLeaderLines, 400);
+
+// Re-lay-out charts and the map leader-line overlay for the print/PDF page size.
+// Both are computed in absolute pixel coordinates measured from the on-screen
+// layout; without this, printing reuses those stale on-screen measurements
+// against the (differently sized) print layout, which cuts off chart content
+// and sends leader-line callouts to the wrong place.
+function relayoutForPrint() {
+  ['paxChart','intlChart','marketShareChart','socalChart'].forEach(function(id) {
+    var ch = (typeof Chart !== 'undefined' && Chart.getChart) ? Chart.getChart(id) : null;
+    if (ch) { ch.resize(); ch.update('none'); }
+  });
+  if (typeof drawMapLeaderLines === 'function') drawMapLeaderLines();
+}
+window.addEventListener('beforeprint', function() {
+  relayoutForPrint();
+  // Layout can settle a frame after beforeprint fires; nudge again shortly after.
+  setTimeout(relayoutForPrint, 60);
+});
+window.addEventListener('afterprint', relayoutForPrint);
+
 </script>
 </body></html>
