@@ -302,10 +302,9 @@ table.gridjs-table{width:100%!important}
   <div class="section-hd">Southern California Airport Summary — Monthly Passenger Traffic</div>
   <div class="card">
     <div style="margin-bottom:10px;">
-      <div class="filterLabel" style="font-size:13px;margin-bottom:6px;">LAX and SAN are much larger hubs and can flatten this comparison, so they're hidden from the chart and table below by default &mdash; show them anyway:</div>
+      <div class="filterLabel" style="font-size:13px;margin-bottom:6px;">LAX is a much larger hub and can flatten this comparison, so it's hidden from the chart and table below by default &mdash; show it anyway:</div>
       <div style="display:flex;flex-wrap:nowrap;align-items:center;gap:14px;">
         <label style="font-size:12.5px;font-weight:600;white-space:nowrap;"><input type="checkbox" id="toggleLAX"> Include LAX</label>
-        <label style="font-size:12.5px;font-weight:600;white-space:nowrap;"><input type="checkbox" id="toggleSAN"> Include SAN</label>
       </div>
     </div>
     <div class="chartbox" style="height:380px;"><canvas id="socalChart"></canvas></div>
@@ -313,13 +312,13 @@ table.gridjs-table{width:100%!important}
       <tr><th>Airport</th><th>Passengers</th><th>Month</th><th>YoY % Change</th></tr>
       <tr style="background:#77C7C9;"><td><b>Santa Ana / SNA (John Wayne)</b></td><td><b>940,884</b></td><td>Sep 2026</td><td><b>-2.1%</b></td></tr>
       <tr data-code="LAX" style="display:none;"><td>Los Angeles / LAX</td><td>~6,300,000</td><td>May 2026</td><td>n/a</td></tr>
-      <tr data-code="SAN" style="display:none;"><td>San Diego / SAN</td><td>2,639,228</td><td>Jul 2026</td><td>+8.7%</td></tr>
+      <tr data-code="SAN"><td>San Diego / SAN</td><td>2,639,228</td><td>Jul 2026</td><td>+8.7%</td></tr>
       <tr><td>Ontario / ONT</td><td>582,315</td><td>Sep 2026</td><td>-2.8%</td></tr>
       <tr><td>Burbank / BUR (Hollywood Burbank)</td><td>493,519</td><td>Jul 2026</td><td>-10.1%</td></tr>
-      <tr><td>Oakland / OAK</td><td>—</td><td>May 2026</td><td>-17.7%</td></tr>
+      
       <tr><td>Long Beach / LGB</td><td>292,539</td><td>Jun 2026</td><td>-14%</td></tr><tr><td>Palm Springs / PSP</td><td>138,070</td><td>Jun 2026</td><td>-1.2%</td></tr>
     </table>
-    <p class="small">Sources (each airport's own published statistics): <a href="https://www.ocair.com/news/2026/11/10/statistics-september-2026/" target="_blank" rel="noopener">John Wayne Airport, Sep 2026</a>; <a href="https://www.flyontario.com/press/ontario-international-airport-welcomed-nearly-53-million-passengers-through-september-pace-7" target="_blank" rel="noopener">Ontario International Airport, Sep 2026 (flyontario.com)</a>; <a href="https://www.san.org/wp-content/uploads/2026/09/7-JUL-2026.pdf" target="_blank" rel="noopener">San Diego International Airport, Jul 2026 (san.org)</a>; <a href="https://www.hollywoodburbankairport.com/wp-content/uploads/2026/09/July-2026-Passenger-Stats-Press-Release.pdf" target="_blank" rel="noopener">Hollywood Burbank Airport, Jul 2026</a>; <a href="https://longbeach.gov/globalassets/airport/media-library/documents/2026-06-june--rev-" target="_blank" rel="noopener">Long Beach Airport, Jun 2026 (longbeach.gov)</a>; <a href="https://flypsp.com/wp-content/uploads/2026/07/June-2026-Passenger-Aircraft-Activity.pdf" target="_blank" rel="noopener">Palm Springs International Airport, Jun 2026 (flypsp.com)</a>. LAX and OAK are not refreshed: they still show May 2026 values from the earlier edition (Visit California industry report), because the airports&rsquo; 2026 monthly reports could not be retrieved. Months are not aligned across airports (each airport&rsquo;s most recent month retrieved); year-over-year % changes are each airport&rsquo;s own comparison to the same month of 2025. SNA highlighted for comparison.</p>
+    <p class="small">Sources (each airport's own published statistics): <a href="https://www.ocair.com/news/2026/11/10/statistics-september-2026/" target="_blank" rel="noopener">John Wayne Airport, Sep 2026</a>; <a href="https://www.flyontario.com/press/ontario-international-airport-welcomed-nearly-53-million-passengers-through-september-pace-7" target="_blank" rel="noopener">Ontario International Airport, Sep 2026 (flyontario.com)</a>; <a href="https://www.san.org/wp-content/uploads/2026/09/7-JUL-2026.pdf" target="_blank" rel="noopener">San Diego International Airport, Jul 2026 (san.org)</a>; <a href="https://www.hollywoodburbankairport.com/wp-content/uploads/2026/09/July-2026-Passenger-Stats-Press-Release.pdf" target="_blank" rel="noopener">Hollywood Burbank Airport, Jul 2026</a>; <a href="https://longbeach.gov/globalassets/airport/media-library/documents/2026-06-june--rev-" target="_blank" rel="noopener">Long Beach Airport, Jun 2026 (longbeach.gov)</a>; <a href="https://flypsp.com/wp-content/uploads/2026/07/June-2026-Passenger-Aircraft-Activity.pdf" target="_blank" rel="noopener">Palm Springs International Airport, Jun 2026 (flypsp.com)</a>. LAX is not refreshed: it still shows May 2026 from the earlier edition (Visit California industry report), because LAX&rsquo;s 2026 monthly reports could not be retrieved. Months are not aligned across airports (each airport&rsquo;s most recent month retrieved); year-over-year % changes are each airport&rsquo;s own comparison to the same month of 2025. SNA highlighted for comparison.</p>
   </div>
 
   <div class="section-hd">SNA Enplaned vs. Deplaned Passengers — September 2026</div>
@@ -621,10 +620,8 @@ const socalAll = [
 ];
 function socalVisible() {
   const laxOn = document.getElementById('toggleLAX').checked;
-  const sanOn = document.getElementById('toggleSAN').checked;
   return socalAll.filter(function(d) {
     if (d.code === 'LAX') return laxOn;
-    if (d.code === 'SAN') return sanOn;
     return true;
   });
 }
@@ -671,14 +668,10 @@ function refreshSocal() {
   socalChart.data.datasets[0].backgroundColor = rows.map(function(d) { return d.color; });
   socalChart.update();
   const laxOn = document.getElementById('toggleLAX').checked;
-  const sanOn = document.getElementById('toggleSAN').checked;
   const laxRow = document.querySelector('tr[data-code="LAX"]');
-  const sanRow = document.querySelector('tr[data-code="SAN"]');
   if (laxRow) laxRow.style.display = laxOn ? '' : 'none';
-  if (sanRow) sanRow.style.display = sanOn ? '' : 'none';
 }
 document.getElementById('toggleLAX').onchange = refreshSocal;
-document.getElementById('toggleSAN').onchange = refreshSocal;
 
 const rankAlphas = [0.3, 0.277, 0.255, 0.232, 0.21, 0.187, 0.165, 0.142, 0.12, 0.097, 0.075, 0.052, 0.03];
 const rankShade = function(cell, row, column) {
